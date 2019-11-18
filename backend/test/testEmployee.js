@@ -66,4 +66,17 @@ describe('Test - Employee Facade', function() {
 		let employee = await employeeFacade.findEmployeeById(employees[0]._id)
 		expect(employee.email).to.be.equal('bckp@cloetta.dk')
 	})
+
+	it('Add Michael Lundsgaard', async function() {
+		let employee = await employeeFacade.addEmployee(
+			'Michael Lundsgaard',
+			'Service Konsulent',
+			'ml@cloetta.dk',
+			'somestreet 260'
+		)
+		expect(employee).to.not.be.null
+		expect(employee.name).to.be.equal('Michael Lundsgaard')
+		let employees = await employeeFacade.getAllEmployees()
+		expect(employees.length).to.be.equal(4)
+	})
 })
