@@ -9,13 +9,35 @@ mongoose
 	.then(() => console.log('MongoDB Connected - makeData...'))
 	.catch(err => console.log('Error:', err))
 
-const User = require('./models/User')
+const { Employee } = require('./models/Employee')
 const Store = require('./models/Store')
 
 async function makeData() {
 	console.log('Adding Stores')
 	try {
 		await Store.deleteMany({})
+		await Employee.deleteMany({})
+
+		employees = await Employee.insertMany([
+			{
+				name: 'Beline Camilla Kjærgaard Pedersen',
+				title: 'Service Konsulent',
+				email: 'bckp@cloetta.dk',
+				address: 'somestreet 230'
+			},
+			{
+				name: 'Uffe Erik Hansen',
+				title: 'Service Konsulent',
+				email: 'ueh@cloetta.dk',
+				address: 'somestreet 232'
+			},
+			{
+				name: 'Klaus Petersen',
+				title: 'Salgs Konsulent',
+				email: 'kp@cloetta.dk',
+				address: 'somestreet 233'
+			}
+		])
 		stores = await Store.insertMany([
 			{
 				storeInfo: {
@@ -28,18 +50,8 @@ async function makeData() {
 					phone: '43955000'
 				},
 				empInfo: {
-					serviceConsultant: {
-						name: 'Beline Camilla Kjærgaard Pedersen',
-						title: 'Service Konsulent',
-						email: 'bckp@cloetta.dk',
-						address: 'somestreet 230'
-					},
-					salesConsultant: {
-						name: 'Peter Johansen',
-						title: 'Salgs Konsulent',
-						email: 'pj@cloetta.dk',
-						address: 'somestreet 231'
-					},
+					serviceConsultant: employees[0],
+					salesConsultant: employees[2],
 					visitDay: 'Man/Fre',
 					priority: 'A',
 					frequency: '2 besøg hver uge'
@@ -65,18 +77,8 @@ async function makeData() {
 					phone: '36762511'
 				},
 				empInfo: {
-					serviceConsultant: {
-						name: 'Uffe Erik Hansen',
-						title: 'Service Konsulent',
-						email: 'ueh@cloetta.dk',
-						address: 'somestreet 232'
-					},
-					salesConsultant: {
-						name: 'Klaus Petersen',
-						title: 'Salgs Konsulent',
-						email: 'kp@cloetta.dk',
-						address: 'somestreet 233'
-					},
+					serviceConsultant: employees[1],
+					salesConsultant: employees[2],
 					visitDay: 'Ons',
 					priority: 'B',
 					frequency: '1 besøg hver uge'

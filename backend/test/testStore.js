@@ -3,9 +3,11 @@ const expect = require('chai').expect
 
 // Facade
 const storeFacade = require('../facades/storeFacade')
+const employeeFacade = require('../facades/employeeFacade')
 
 // Model
 const Store = require('../models/Store')
+const { Employee } = require('../models/Employee')
 
 describe('Test - Store Facade', function() {
 	before(async function() {
@@ -26,6 +28,28 @@ describe('Test - Store Facade', function() {
 	// Setup the database in a known state BEFORE EACH test
 	beforeEach(async function() {
 		await Store.deleteMany({})
+		await Employee.deleteMany({})
+
+		employees = await Employee.insertMany([
+			{
+				name: 'Beline Camilla Kjærgaard Pedersen',
+				title: 'Service Konsulent',
+				email: 'bckp@cloetta.dk',
+				address: 'somestreet 230'
+			},
+			{
+				name: 'Uffe Erik Hansen',
+				title: 'Service Konsulent',
+				email: 'ueh@cloetta.dk',
+				address: 'somestreet 232'
+			},
+			{
+				name: 'Klaus Petersen',
+				title: 'Salgs Konsulent',
+				email: 'kp@cloetta.dk',
+				address: 'somestreet 233'
+			}
+		])
 		stores = await Store.insertMany([
 			{
 				storeInfo: {
@@ -38,18 +62,8 @@ describe('Test - Store Facade', function() {
 					phone: '43955000'
 				},
 				empInfo: {
-					serviceConsultant: {
-						name: 'Beline Camilla Kjærgaard Pedersen',
-						title: 'Service Konsulent',
-						email: 'bckp@cloetta.dk',
-						address: 'somestreet 230'
-					},
-					salesConsultant: {
-						name: 'Peter Johansen',
-						title: 'Salgs Konsulent',
-						email: 'pj@cloetta.dk',
-						address: 'somestreet 231'
-					},
+					serviceConsultant: employees[0],
+					salesConsultant: employees[2],
 					visitDay: 'Man/Fre',
 					priority: 'A',
 					frequency: '2 besøg hver uge'
@@ -75,18 +89,8 @@ describe('Test - Store Facade', function() {
 					phone: '36762511'
 				},
 				empInfo: {
-					serviceConsultant: {
-						name: 'Uffe Erik Hansen',
-						title: 'Service Konsulent',
-						email: 'ueh@cloetta.dk',
-						address: 'somestreet 232'
-					},
-					salesConsultant: {
-						name: 'Klaus Petersen',
-						title: 'Salgs Konsulent',
-						email: 'kp@cloetta.dk',
-						address: 'somestreet 233'
-					},
+					serviceConsultant: employees[1],
+					salesConsultant: employees[2],
 					visitDay: 'Ons',
 					priority: 'B',
 					frequency: '1 besøg hver uge'
@@ -125,6 +129,18 @@ describe('Test - Store Facade', function() {
 	})
 
 	it('Add Føtex Carlsbergbyen', async function() {
+		let empSerive = await employeeFacade.addEmployee(
+			'Michael Lundsgaard',
+			'Service Konsulent',
+			'ml@cloetta.dk',
+			'somestreet 234'
+		)
+		let empSales = await employeeFacade.addEmployee(
+			'Klaus Petersen',
+			'Salgs Konsulent',
+			'kp@cloetta.dk',
+			'somestreet 235'
+		)
 		let store = await storeFacade.addStore(
 			{
 				storeNum: 5113225,
@@ -136,18 +152,8 @@ describe('Test - Store Facade', function() {
 				phone: '33876000'
 			},
 			{
-				serviceConsultant: {
-					name: 'Michael Lundsgaard',
-					title: 'Service Konsulent',
-					email: 'ml@cloetta.dk',
-					address: 'somestreet 234'
-				},
-				salesConsultant: {
-					name: 'Klaus Petersen',
-					title: 'Salgs Konsulent',
-					email: 'kp@cloetta.dk',
-					address: 'somestreet 235'
-				},
+				serviceConsultant: empSerive,
+				salesConsultant: empSales,
 				visitDay: 'Man/Tors',
 				priority: 'A',
 				frequency: '2 besøg hver uge'
