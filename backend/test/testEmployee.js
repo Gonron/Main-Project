@@ -79,4 +79,12 @@ describe('Test - Employee Facade', function() {
 		let employees = await employeeFacade.getAllEmployees()
 		expect(employees.length).to.be.equal(4)
 	})
+
+	it('Delete Klaus By ID', async function() {
+		await employeeFacade.deleteEmployeeById(employees[2]._id)
+		let employee = await employeeFacade.findEmployeeById(employees[2]._id)
+		let employee_ = await employeeFacade.getAllEmployees()
+		expect(employee).to.be.null
+		expect(employee_.length).to.be.equal(2)
+	})
 })

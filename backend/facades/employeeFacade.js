@@ -21,10 +21,15 @@ function findEmployeeById(employeeId) {
 	return Employee.findById({ _id: employeeId }).exec()
 }
 
+function deleteEmployeeById(employeeId) {
+	return Employee.deleteOne({ _id: employeeId }).exec()
+}
+
 module.exports = {
 	getAllEmployees,
 	addEmployee,
 	findEmployeeByName,
 	findEmployeeByEmail,
-	findEmployeeById
+	findEmployeeById,
+	deleteEmployeeById
 }

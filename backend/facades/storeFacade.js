@@ -33,10 +33,20 @@ function findStoreById(storeId) {
 	return Store.findById({ _id: storeId }).exec()
 }
 
+function deleteStoreById(storeId) {
+	return Store.deleteOne({ _id: storeId }).exec()
+}
+
+function deleteStoreByNumber(number) {
+	return Store.deleteOne({ 'storeInfo.storeNum': number }).exec()
+}
+
 module.exports = {
 	getAllStores,
 	addStore,
 	findStoreByName,
 	findStoreByNumber,
-	findStoreById
+	findStoreById,
+	deleteStoreById,
+	deleteStoreByNumber
 }

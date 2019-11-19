@@ -5,9 +5,6 @@ const router = express.Router()
 const registerFacade = require('../facades/registerFacade')
 const authFacade = require('../facades/authFacade')
 
-// User model
-const User = require('../models/User')
-
 // Login Page
 router.get('/login', (req, res) => res.render('login'))
 

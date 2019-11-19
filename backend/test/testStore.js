@@ -113,17 +113,17 @@ describe('Test - Store Facade', function() {
 		expect(stores.length).to.be.equal(2)
 	})
 
-	it('Find Bilka/A-Z By Store Name', async function() {
+	it('Find Bilka Hundige By Store Name', async function() {
 		let store = await storeFacade.findStoreByName('Bilka Hundige')
 		expect(store.storeInfo.storeName).to.be.equal('Bilka Hundige')
 	})
 
-	it('Find Bilka/A-Z By Store Number', async function() {
+	it('Find Bilka Hundige By Store Number', async function() {
 		let store = await storeFacade.findStoreByNumber(5670017)
 		expect(store.storeInfo.storeNum).to.be.equal(5670017)
 	})
 
-	it('Find Bilka/A-Z By ID', async function() {
+	it('Find Bilka Hundige By ID', async function() {
 		let store = await storeFacade.findStoreById(stores[0]._id)
 		expect(store.storeInfo.storeNum).to.be.equal(5670017)
 	})
@@ -174,5 +174,21 @@ describe('Test - Store Facade', function() {
 		expect(store.storeInfo.storeName).to.be.equal('Føtex Carlsbergbyen')
 		let stores = await storeFacade.getAllStores()
 		expect(stores.length).to.be.equal(3)
+	})
+
+	it('Delete Meny Hvidover By ID', async function() {
+		await storeFacade.deleteStoreById(stores[1]._id)
+		let store = await storeFacade.findStoreById(stores[1]._id)
+		let store_ = await storeFacade.getAllStores()
+		expect(store).to.be.null
+		expect(store_.length).to.be.equal(1)
+	})
+
+	it('Delete Meny Hvidover By Number', async function() {
+		await storeFacade.deleteStoreByNumber(5173029)
+		let store = await storeFacade.findStoreById(stores[1]._id)
+		let store_ = await storeFacade.getAllStores()
+		expect(store).to.be.null
+		expect(store_.length).to.be.equal(1)
 	})
 })

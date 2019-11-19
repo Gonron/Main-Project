@@ -6,7 +6,9 @@
 	"scripts": {
 		"start": "node app.js",
 		"dev": "nodemon app.js",
-		"test": "mocha"
+		"test": "mocha",
+		"testStore": "mocha test/testStore",
+		"testEmp": "mocha test/testEmployee"
 	},
 	"keywords": [],
 	"author": "",

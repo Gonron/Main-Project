@@ -36,6 +36,36 @@ async function makeData() {
 				title: 'Salgs Konsulent',
 				email: 'kp@cloetta.dk',
 				address: 'somestreet 233'
+			},
+			{
+				name: 'Kurt Wonnegut',
+				title: 'Service Konsulent',
+				email: 'kw@cloetta.dk',
+				address: 'somestreet 234'
+			},
+			{
+				name: 'Hanne Wonnegut',
+				title: 'Salgs Konsulent',
+				email: 'hk@cloetta.dk',
+				address: 'somestreet 235'
+			},
+			{
+				name: 'Michael Lundsgaard',
+				title: 'Service Konsulent',
+				email: 'ml@cloetta.dk',
+				address: 'somestreet 236'
+			},
+			{
+				name: 'Henrik Lundsgaard',
+				title: 'Service Konsulent',
+				email: 'hl@cloetta.dk',
+				address: 'somestreet 237'
+			},
+			{
+				name: 'Kira Smith',
+				title: 'Salgs Konsulent',
+				email: 'ks@cloetta.dk',
+				address: 'somestreet 238'
 			}
 		])
 		stores = await Store.insertMany([
@@ -94,9 +124,17 @@ async function makeData() {
 				avgAmount: 72
 			}
 		])
+
+		// Disconnect from Mongo
+		await mongoose
+			.disconnect()
+			.then(() => console.log('MongoDB Disconnected - makeDate'))
+			.catch(err => console.log('Error:', err))
 	} catch (err) {
 		console.log(err)
 	}
 }
 
 makeData()
+
+// Disconnect from Mongo
