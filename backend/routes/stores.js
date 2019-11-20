@@ -15,4 +15,8 @@ router.get('/storenum=:storeNum', ensureAuthenticated, async function(req, res) 
 	res.render('store', { store })
 })
 
+// router.get('/test', ensureAuthenticated, async function(req, res) {
+// 	let test = await googleApiFacade.googleApi('Sydhavn St', 'Ørestad St')
+// 	res.render('test', { test })
+// })
 module.exports = router

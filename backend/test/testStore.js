@@ -128,6 +128,19 @@ describe('Test - Store Facade', function() {
 		expect(store.storeInfo.storeNum).to.be.equal(5670017)
 	})
 
+	it('Find Bilka/Meny by Employee ID', async function() {
+		let stores = await storeFacade.findStoreByEmployeeId(employees[2]._id)
+		expect(stores.length).to.be.equal(2)
+		expect(stores[0].storeInfo.storeName).to.be.equal('Bilka Hundige')
+		expect(stores[1].storeInfo.storeName).to.be.equal('Meny Hvidover')
+	})
+
+	it('Find Meny by Employee ID', async function() {
+		let stores = await storeFacade.findStoreByEmployeeId(employees[1]._id)
+		expect(stores.length).to.be.equal(1)
+		expect(stores[0].storeInfo.storeName).to.be.equal('Meny Hvidover')
+	})
+
 	it('Add Føtex Carlsbergbyen', async function() {
 		let empSerive = await employeeFacade.addEmployee(
 			'Michael Lundsgaard',
