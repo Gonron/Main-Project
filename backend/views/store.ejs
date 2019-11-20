@@ -1,0 +1,137 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-primary">
+	<a class="navbar-brand" href="/dashboard">Cloetta</a>
+	<button
+		class="navbar-toggler"
+		type="button"
+		data-toggle="collapse"
+		data-target="#navbarColor01"
+		aria-controls="navbarColor01"
+		aria-expanded="false"
+		aria-label="Toggle navigation"
+	>
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarColor01">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item">
+				<a class="nav-link" href="/stores">Stores</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/employees">Team</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">About</a>
+			</li>
+		</ul>
+		<a href="/users/logout" class="btn btn-secondary">Logout</a>
+	</div>
+</nav>
+<div class="col">
+	<h1 class="mt-4"><%= store.storeInfo.storeName%></h1>
+	<ul class="nav nav-tabs">
+		<li class="nav-item">
+			<a class="nav-link active" data-toggle="tab" href="#store">Store Info</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" data-toggle="tab" href="#emp">Employee Info</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" data-toggle="tab" href="#rack">Rack Info</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" data-toggle="tab" href="#other">Other</a>
+		</li>
+	</ul>
+	<div id="myTabContent" class="tab-content">
+		<div class="tab-pane fade show active" id="store">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Number</th>
+						<th>Name</th>
+						<th>Address</th>
+						<th>Phone</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><%= store.storeInfo.storeNum %></td>
+						<td><%= store.storeInfo.storeName %></td>
+						<td>
+							<%= store.storeInfo.address %>
+							<br />
+							<%= `${store.storeInfo.zipCode} ${store.storeInfo.city}` %>
+						</td>
+						<td><%= store.storeInfo.phone %></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="tab-pane fade" id="emp">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Title</th>
+						<th>Contact</th>
+						<th>Address</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><%= store.empInfo.serviceConsultant[0].name %></td>
+						<td><%= store.empInfo.serviceConsultant[0].title %></td>
+						<td><%= store.empInfo.serviceConsultant[0].email%></td>
+						<td><%= store.empInfo.serviceConsultant[0].address %></td>
+					</tr>
+					<tr>
+						<td><%= store.empInfo.salesConsultant[0].name %></td>
+						<td><%= store.empInfo.salesConsultant[0].title %></td>
+						<td><%= store.empInfo.salesConsultant[0].email%></td>
+						<td><%= store.empInfo.salesConsultant[0].address %></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="tab-pane fade" id="rack">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Racks</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<% for (let [key, value] of Object.entries(store.containers)) { %> <%
+						if(parseInt(value) > 0) { %>
+						<td><%= `${key}: ${value}` %></td>
+
+						<% } %> <% } %>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="tab-pane fade" id="other">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Time on P/M</th>
+						<th>Time on Packed</th>
+						<th>Total Time</th>
+						<th>Avg. Kg</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><%= store.timeSpent.timeSpentPM %></td>
+						<td><%= store.timeSpent.timeSpentPacked %></td>
+						<td><%= store.timeSpent.timeSpentTotal %></td>
+						<td><%= `${store.avgAmount} Kg` %></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

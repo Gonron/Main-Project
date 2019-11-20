@@ -122,14 +122,40 @@ async function makeData() {
 					timeSpentTotal: '01:45'
 				},
 				avgAmount: 72
+			},
+			{
+				storeInfo: {
+					storeNum: 5113225,
+					storeName: 'Føtex Carlsbergbyen',
+					storeChain: 'Meny',
+					address: 'Tapperitorvet 44-46',
+					zipCode: 1799,
+					city: 'København',
+					phone: '33876000'
+				},
+				empInfo: {
+					serviceConsultant: employees[3],
+					salesConsultant: employees[4],
+					visitDay: 'Man/Tors',
+					priority: 'A',
+					frequency: '2 besøg hver uge'
+				},
+				containers: {
+					CKS2Full: 4,
+					CKSSmartLow: 2,
+					Parrot: 2
+				},
+				timeSpent: {
+					timeSpentPM: '01:35',
+					timeSpentPacked: '00:50',
+					timeSpentTotal: '02:25'
+				},
+				avgAmount: 145
 			}
 		])
 
 		// Disconnect from Mongo
-		await mongoose
-			.disconnect()
-			.then(() => console.log('MongoDB Disconnected - makeDate'))
-			.catch(err => console.log('Error:', err))
+		await mongoose.disconnect()
 	} catch (err) {
 		console.log(err)
 	}

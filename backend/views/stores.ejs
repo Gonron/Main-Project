@@ -29,5 +29,32 @@
 </nav>
 <div class="col">
 	<h1 class="mt-4">Stores</h1>
-	<%= stores.map(x => x.storeInfo) %>
+	<table class="table table-hover" id="myTable">
+		<thead>
+			<tr>
+				<th>Number</th>
+				<th>Name</th>
+				<th>Address</th>
+				<th>Phone</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% stores.map( s => { %>
+			<tr>
+				<td>
+					<a href="/stores/storenum=<%- s.storeInfo.storeNum -%>"
+						><%= s.storeInfo.storeNum %>
+					</a>
+				</td>
+				<td><%= s.storeInfo.storeName %></td>
+				<td>
+					<%= s.storeInfo.address %>
+					<br />
+					<%= `${s.storeInfo.zipCode} ${s.storeInfo.city}` %>
+				</td>
+				<td><%= s.storeInfo.phone %></td>
+			</tr>
+			<% }) %>
+		</tbody>
+	</table>
 </div>

@@ -29,5 +29,24 @@
 </nav>
 <div class="col">
 	<h1 class="mt-4">Employees</h1>
-	<%= employees.map( x => ` ${x.name} - ${x.title}` ) %>
+	<table class="table table-hover" id="myTable">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Title</th>
+				<th>Email</th>
+				<th>Address</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% employees.map( emp => { %>
+			<tr>
+				<td><%= emp.name %></td>
+				<td><%= emp.title %></td>
+				<td><%= emp.email %></td>
+				<td><%= emp.address %></td>
+			</tr>
+			<% }) %>
+		</tbody>
+	</table>
 </div>

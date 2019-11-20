@@ -9,5 +9,10 @@ router.get('/', ensureAuthenticated, async function(req, res) {
 	let stores = await storeFacade.getAllStores()
 	res.render('stores', { stores })
 })
+router.get('/storenum=:storeNum', ensureAuthenticated, async function(req, res) {
+	let storeNum = req.params.storeNum
+	let store = await storeFacade.findStoreByNumber(storeNum)
+	res.render('store', { store })
+})
 
 module.exports = router
