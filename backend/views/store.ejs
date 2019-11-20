@@ -27,8 +27,14 @@
 		<a href="/users/logout" class="btn btn-secondary">Logout</a>
 	</div>
 </nav>
+<!-- Breadcrumbs -->
+<ol class="breadcrumb">
+	<li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+	<li class="breadcrumb-item"><a href="/stores">Stores</a></li>
+	<li class="breadcrumb-item active"><%= store.storeInfo.storeName%></li>
+</ol>
 <div class="col">
-	<h1 class="mt-4"><%= store.storeInfo.storeName%></h1>
+	<h2 class="mt-4"><%= store.storeInfo.storeName%></h2>
 	<ul class="nav nav-tabs">
 		<li class="nav-item">
 			<a class="nav-link active" data-toggle="tab" href="#store">Store Info</a>
