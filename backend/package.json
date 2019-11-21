@@ -8,7 +8,8 @@
 		"dev": "nodemon app.js",
 		"test": "mocha",
 		"testStore": "mocha test/testStore",
-		"testEmp": "mocha test/testEmployee"
+		"testEmp": "mocha test/testEmployee",
+		"testGoogle": "mocha test/testGoogleApi"
 	},
 	"keywords": [],
 	"author": "",

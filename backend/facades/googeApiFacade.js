@@ -5,22 +5,36 @@ const googleMapsClient = require('@google/maps').createClient({
 	Promise: Promise
 })
 
-function googleApi(originAddress, destinationAddress) {
+function googleApi(originAddress, destinationAddress, travelMode = 'driving') {
 	return googleMapsClient
 		.distanceMatrix({
 			origins: originAddress,
 			destinations: destinationAddress,
-			mode: 'driving',
+			mode: travelMode,
 			language: 'dk'
 		})
 		.asPromise()
 		.then(res => {
-			return {
+			let respone = {
 				originAddress: res.json.origin_addresses,
-				destinationAddress: res.json.destination_addresses,
-				duration: res.json.rows[0].elements[0].duration.text,
-				distance: res.json.rows[0].elements[0].distance.text
+				destinationAddresses: res.json.destination_addresses,
+				durations: {
+					text: [],
+					value: []
+				},
+				distances: {
+					text: [],
+					value: []
+				}
 			}
+			let dataSource = res.json.rows[0].elements
+			for (let i = 0; i < dataSource.length; i++) {
+				respone.durations.text.push(dataSource[i].duration.text)
+				respone.durations.value.push(dataSource[i].duration.value)
+				respone.distances.text.push(dataSource[i].distance.text)
+				respone.distances.value.push(dataSource[i].distance.value)
+			}
+			return respone
 		})
 		.catch(err => {
 			console.log(err)

@@ -4,6 +4,7 @@ const { ensureAuthenticated } = require('../config/auth')
 
 // Store Facade
 const storeFacade = require('../facades/storeFacade')
+const googleApiFacade = require('../facades/googeApiFacade')
 
 router.get('/', ensureAuthenticated, async function(req, res) {
 	let stores = await storeFacade.getAllStores()
@@ -15,8 +16,10 @@ router.get('/storenum=:storeNum', ensureAuthenticated, async function(req, res) 
 	res.render('store', { store })
 })
 
-// router.get('/test', ensureAuthenticated, async function(req, res) {
-// 	let test = await googleApiFacade.googleApi('Sydhavn St', 'Ørestad St')
-// 	res.render('test', { test })
-// })
+router.get('/test', ensureAuthenticated, async function(req, res) {
+	let test = await googleApiFacade.googleApi('Sydhavn St', ['Ørestad St', 'Haslev St'])
+	console.log(test)
+	res.render('test', { test })
+})
+
 module.exports = router

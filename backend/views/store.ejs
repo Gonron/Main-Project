@@ -87,13 +87,22 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td><%= store.empInfo.serviceConsultant[0].name %></td>
+						<td>
+							<a
+								href="/employees/emp_id=<%- store.empInfo.serviceConsultant[0]._id -%>"
+								><%= store.empInfo.serviceConsultant[0].name %></a
+							>
+						</td>
 						<td><%= store.empInfo.serviceConsultant[0].title %></td>
 						<td><%= store.empInfo.serviceConsultant[0].email%></td>
 						<td><%= store.empInfo.serviceConsultant[0].address %></td>
 					</tr>
 					<tr>
-						<td><%= store.empInfo.salesConsultant[0].name %></td>
+						<td>
+							<a href="/employees/emp_id=<%- store.empInfo.salesConsultant[0]._id -%>"
+								><%= store.empInfo.salesConsultant[0].name %></a
+							>
+						</td>
 						<td><%= store.empInfo.salesConsultant[0].title %></td>
 						<td><%= store.empInfo.salesConsultant[0].email%></td>
 						<td><%= store.empInfo.salesConsultant[0].address %></td>
