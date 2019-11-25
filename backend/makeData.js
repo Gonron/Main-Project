@@ -35,7 +35,7 @@ async function makeData() {
 				name: 'Klaus Petersen',
 				title: 'Salgs Konsulent',
 				email: 'kp@cloetta.dk',
-				address: 'somestreet 233'
+				address: 'Storgårdsvej 23, 4690 Haslev'
 			},
 			{
 				name: 'Kurt Wonnegut',
@@ -99,12 +99,12 @@ async function makeData() {
 			{
 				storeInfo: {
 					storeNum: 5173029,
-					storeName: 'Meny Hvidover',
+					storeName: 'Meny Allerød',
 					storeChain: 'Meny',
-					address: 'Hvidovre Stationscenter 57',
-					zipCode: 2650,
-					city: 'Hvidover',
-					phone: '36762511'
+					address: 'Kirsebærgården 2, 3450 Lillerød',
+					zipCode: 3450,
+					city: 'Lillerød',
+					phone: '48141778'
 				},
 				empInfo: {
 					serviceConsultant: employees[1],
@@ -127,7 +127,7 @@ async function makeData() {
 				storeInfo: {
 					storeNum: 5113225,
 					storeName: 'Føtex Carlsbergbyen',
-					storeChain: 'Meny',
+					storeChain: 'Føtex',
 					address: 'Tapperitorvet 44-46',
 					zipCode: 1799,
 					city: 'København',

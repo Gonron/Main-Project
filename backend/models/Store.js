@@ -54,32 +54,25 @@ const StoreSchema = new Schema({
 	},
 	containers: {
 		CKS2Full: {
-			type: Number,
-			default: 0
+			type: Number
 		},
 		CKS2Split: {
-			type: Number,
-			default: 0
+			type: Number
 		},
 		CKS1High: {
-			type: Number,
-			default: 0
+			type: Number
 		},
 		CKS1Full: {
-			type: Number,
-			default: 0
+			type: Number
 		},
 		CKS1Low: {
-			type: Number,
-			default: 0
+			type: Number
 		},
 		CKSSmartLow: {
-			type: Number,
-			default: 0
+			type: Number
 		},
 		Parrot: {
-			type: Number,
-			default: 0
+			type: Number
 		}
 	},
 	timeSpent: {

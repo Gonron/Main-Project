@@ -13,8 +13,8 @@ router.get('/', ensureAuthenticated, async function(req, res) {
 
 router.get('/emp_id=:empId', ensureAuthenticated, async function(req, res) {
 	let empId = req.params.empId
-	let stores = await storeFacade.findStoreByEmployeeId(empId)
-	let employee = await employeeFacade.findEmployeeById(empId)
+	let stores = await storeFacade.findStoresByEmployeeId(empId)
+	let employee = await employeeFacade.findOneEmployeeById(empId)
 	res.render('employee', { stores, employee })
 })
 

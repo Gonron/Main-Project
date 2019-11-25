@@ -21,28 +21,50 @@ function addStore(
 	}).save())
 }
 
-function findStoreByName(name) {
+function findOneStoreByName(name) {
 	return Store.findOne({ 'storeInfo.storeName': name }).exec()
 }
 
-function findStoreByNumber(number) {
+function findStoresByName(name) {
+	return Store.find({ 'storeInfo.storeName': new RegExp(name, 'i') }).exec()
+}
+
+function findOneStoreByNumber(number) {
 	return Store.findOne({ 'storeInfo.storeNum': number }).exec()
 }
 
-function findStoreById(storeId) {
+function findOneStoreById(storeId) {
 	return Store.findById({ _id: storeId }).exec()
 }
 
-function findStoreByEmployeeId(employeeId) {
+function findStoresByEmployeeId(employeeId) {
 	return Store.find({
 		$or: [
 			{ 'empInfo.serviceConsultant._id': employeeId },
 			{ 'empInfo.salesConsultant._id': employeeId }
 		]
 	}).exec()
+}
 
-	// return Store.find({ 'empInfo.serviceConsultant._id': employeeId }).exec()
-	// Store.find({ 'empInfo.salesConsultant._id': employeeId }).exec()
+function findStoresByEmployeedAndEmpVisitDay(employeeId, visitDay) {
+	return Store.find({
+		$and: [
+			{
+				$or: [
+					{ 'empInfo.serviceConsultant._id': employeeId },
+					{ 'empInfo.salesConsultant._id': employeeId }
+				]
+			},
+			{ 'empInfo.visitDay': new RegExp(visitDay, 'i') }
+		]
+	}).exec()
+}
+
+function updateStoreById(storeId, storeInfo, empInfo, containers, timeSpent, avgAmount) {
+	return Store.findOneAndUpdate(
+		{ _id: storeId },
+		{ $set: { storeInfo, empInfo, containers, timeSpent, avgAmount } }
+	).exec()
 }
 
 function deleteStoreById(storeId) {
@@ -56,10 +78,13 @@ function deleteStoreByNumber(number) {
 module.exports = {
 	getAllStores,
 	addStore,
-	findStoreByName,
-	findStoreByNumber,
-	findStoreById,
-	findStoreByEmployeeId,
+	findOneStoreByName,
+	findStoresByName,
+	findOneStoreByNumber,
+	findOneStoreById,
+	findStoresByEmployeeId,
+	findStoresByEmployeedAndEmpVisitDay,
+	updateStoreById,
 	deleteStoreById,
 	deleteStoreByNumber
 }

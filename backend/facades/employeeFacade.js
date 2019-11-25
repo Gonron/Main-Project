@@ -9,16 +9,31 @@ function addEmployee(name, title, email, address) {
 	return (newEmployee = Employee({ name, title, email, address }).save())
 }
 
-function findEmployeeByName(name) {
+function findOneEmployeeByName(name) {
 	return Employee.findOne({ name }).exec()
 }
 
-function findEmployeeByEmail(email) {
+function findEmployeesByName(name) {
+	return Employee.find({ name: new RegExp(name, 'i') }).exec()
+}
+
+function findOneEmployeeByEmail(email) {
 	return Employee.findOne({ email }).exec()
 }
 
-function findEmployeeById(employeeId) {
+function findEmployeesByEmail(email) {
+	return Employee.find({ email: new RegExp(email, 'i') }).exec()
+}
+
+function findOneEmployeeById(employeeId) {
 	return Employee.findById({ _id: employeeId }).exec()
+}
+
+function updateEmployeeById(employeeId, name, title, email, address) {
+	return Employee.findOneAndUpdate(
+		{ _id: employeeId },
+		{ $set: { name, title, email, address } }
+	).exec()
 }
 
 function deleteEmployeeById(employeeId) {
@@ -28,8 +43,11 @@ function deleteEmployeeById(employeeId) {
 module.exports = {
 	getAllEmployees,
 	addEmployee,
-	findEmployeeByName,
-	findEmployeeByEmail,
-	findEmployeeById,
+	findOneEmployeeByName,
+	findEmployeesByName,
+	findOneEmployeeByEmail,
+	findEmployeesByEmail,
+	findOneEmployeeById,
+	updateEmployeeById,
 	deleteEmployeeById
 }
