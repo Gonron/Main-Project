@@ -292,4 +292,127 @@ describe('Test - Store Facade', function() {
 		expect(store).to.be.null
 		expect(store_.length).to.be.equal(2)
 	})
+
+	it('Fail Validation for Update - No Fields', async function() {
+		let errors = storeFacade.storeValidation({
+			storeNum: '',
+			storeName: '',
+			storeChain: '',
+			address: '',
+			zipCode: '',
+			city: '',
+			phone: '',
+			serviceConsultant: '',
+			salesConsultant: '',
+			visitDay: '',
+			priority: '',
+			frequency: '',
+			CKS1Full: '',
+			Parrot: '',
+			timeSpentPM: '',
+			timeSpentPacked: '',
+			timeSpentTotal: '',
+			avgAmount: ''
+		})
+		expect(errors.length).to.be.equal(3)
+		expect(errors[0].msg).to.be.equal('Please fill in all fields')
+	})
+
+	it('Fail Validation for Update - Invalid Zipcode', async function() {
+		let errors = storeFacade.storeValidation({
+			storeNum: '5670017',
+			storeName: 'Bilka Hundige',
+			storeChain: 'Bilka/A-Z',
+			address: 'Hundige Centervej 450, 2670 Greve',
+			zipCode: '26',
+			city: 'Greve',
+			phone: '43955000',
+			serviceConsultant: employees[0],
+			salesConsultant: employees[2],
+			visitDay: 'Man/Fre',
+			priority: 'A',
+			frequency: '2 besøg hver uge',
+			CKS1Full: '10',
+			Parrot: '2',
+			timeSpentPM: '03:04',
+			timeSpentPacked: '02:02',
+			timeSpentTotal: '05:06',
+			avgAmount: '200'
+		})
+		expect(errors.length).to.be.equal(1)
+		expect(errors[0].msg).to.be.equal('Invalid zipcode - Should be 4 digits')
+	})
+
+	it('Fail Validation for Update - Invalid Address', async function() {
+		let errors = await storeFacade.storeValidation({
+			storeNum: '5670017',
+			storeName: 'Bilka Hundige',
+			storeChain: 'Bilka/A-Z',
+			address: 'Hundige Centervej 450',
+			zipCode: '2670',
+			city: 'Greve',
+			phone: '43955000',
+			serviceConsultant: employees[0],
+			salesConsultant: employees[2],
+			visitDay: 'Man/Fre',
+			priority: 'A',
+			frequency: '2 besøg hver uge',
+			CKS1Full: '10',
+			Parrot: '2',
+			timeSpentPM: '03:04',
+			timeSpentPacked: '02:02',
+			timeSpentTotal: '05:06',
+			avgAmount: '200'
+		})
+		expect(errors.length).to.be.equal(1)
+		expect(errors[0].msg).to.be.equal('address must have zipcode and city in it')
+	})
+
+	it('Fail Validation for Update - Invalid Address', async function() {
+		let errors = storeFacade.storeValidation({
+			storeNum: '5670017',
+			storeName: 'Bilka Hundige',
+			storeChain: 'Bilka/A-Z',
+			address: 'Hundige Centervej 450, 2670 Greve',
+			zipCode: '2670',
+			city: 'Greve',
+			phone: '4395',
+			serviceConsultant: employees[0],
+			salesConsultant: employees[2],
+			visitDay: 'Man/Fre',
+			priority: 'A',
+			frequency: '2 besøg hver uge',
+			CKS1Full: '10',
+			Parrot: '2',
+			timeSpentPM: '03:04',
+			timeSpentPacked: '02:02',
+			timeSpentTotal: '05:06',
+			avgAmount: '200'
+		})
+		expect(errors.length).to.be.equal(1)
+		expect(errors[0].msg).to.be.equal('Invalid number - Should be 8 digits')
+	})
+	it('Pass Validation for Update', async function() {
+		let errors = storeFacade.storeValidation({
+			storeNum: '5670017',
+			storeName: 'Bilka Hundige',
+			storeChain: 'Bilka/A-Z',
+			address: 'Hundige Centervej 450, 2670 Greve',
+			zipCode: '2670',
+			city: 'Greve',
+			phone: '43955000',
+			serviceConsultant: employees[0],
+			salesConsultant: employees[2],
+			visitDay: 'Man/Fre',
+			priority: 'A',
+			frequency: '2 besøg hver uge',
+			CKS1Full: '10',
+			Parrot: '2',
+			timeSpentPM: '03:04',
+			timeSpentPacked: '02:02',
+			timeSpentTotal: '05:06',
+			avgAmount: '200'
+		})
+		expect(errors.length).to.be.equal(0)
+	})
 })

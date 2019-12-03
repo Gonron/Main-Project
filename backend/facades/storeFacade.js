@@ -63,7 +63,8 @@ function findStoresByEmployeedAndEmpVisitDay(employeeId, visitDay) {
 function updateStoreById(storeId, storeInfo, empInfo, containers, timeSpent, avgAmount) {
 	return Store.findOneAndUpdate(
 		{ _id: storeId },
-		{ $set: { storeInfo, empInfo, containers, timeSpent, avgAmount } }
+		{ $set: { storeInfo, empInfo, containers, timeSpent, avgAmount } },
+		{ runValidators: true }
 	).exec()
 }
 
@@ -73,6 +74,34 @@ function deleteStoreById(storeId) {
 
 function deleteStoreByNumber(number) {
 	return Store.deleteOne({ 'storeInfo.storeNum': number }).exec()
+}
+
+function storeValidation(body) {
+	let errors = []
+
+	// Check required fields
+	for (let key in body) {
+		if (body[key] === '') {
+			errors.push({ msg: 'Please fill in all fields' })
+			break
+		}
+	}
+
+	// Check zipcode
+	if (body.zipCode.length != 4) {
+		errors.push({ msg: 'Invalid zipcode - Should be 4 digits' })
+	}
+
+	// Check address
+	if (!body.address.includes(body.zipCode) || !body.address.includes(body.city)) {
+		errors.push({ msg: 'address must have zipcode and city in it' })
+	}
+
+	// Check phone
+	if (body.phone.length != 8) {
+		errors.push({ msg: 'Invalid number - Should be 8 digits' })
+	}
+	return errors
 }
 
 module.exports = {
@@ -86,5 +115,6 @@ module.exports = {
 	findStoresByEmployeedAndEmpVisitDay,
 	updateStoreById,
 	deleteStoreById,
-	deleteStoreByNumber
+	deleteStoreByNumber,
+	storeValidation
 }

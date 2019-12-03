@@ -44,7 +44,7 @@ const StoreSchema = new Schema({
 		},
 		priority: {
 			type: String,
-			enum: ['A', 'B', 'C', 'D', 'E'],
+			enum: ['A', 'B', 'C', 'D'],
 			required: true
 		},
 		frequency: {

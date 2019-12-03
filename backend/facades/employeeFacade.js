@@ -32,12 +32,26 @@ function findOneEmployeeById(employeeId) {
 function updateEmployeeById(employeeId, name, title, email, address) {
 	return Employee.findOneAndUpdate(
 		{ _id: employeeId },
-		{ $set: { name, title, email, address } }
+		{ $set: { name, title, email, address } },
+		{ runValidators: true }
 	).exec()
 }
 
 function deleteEmployeeById(employeeId) {
 	return Employee.deleteOne({ _id: employeeId }).exec()
+}
+
+function employeeValidation(name, title, email, address) {
+	let errors = []
+
+	// Check required fields
+	if (!name || !title || !email || !address) {
+		errors.push({ msg: 'Please fill in all fields' })
+	}
+
+	//
+
+	return errors
 }
 
 module.exports = {
@@ -49,5 +63,6 @@ module.exports = {
 	findEmployeesByEmail,
 	findOneEmployeeById,
 	updateEmployeeById,
-	deleteEmployeeById
+	deleteEmployeeById,
+	employeeValidation
 }

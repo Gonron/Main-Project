@@ -1,0 +1,291 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-primary">
+	<a class="navbar-brand" href="/dashboard">Cloetta</a>
+	<button
+		class="navbar-toggler"
+		type="button"
+		data-toggle="collapse"
+		data-target="#navbarColor01"
+		aria-controls="navbarColor01"
+		aria-expanded="false"
+		aria-label="Toggle navigation"
+	>
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarColor01">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item">
+				<a class="nav-link" href="/stores">Stores</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/employees">Team</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">About</a>
+			</li>
+		</ul>
+		<a href="/users/logout" class="btn btn-secondary">Logout</a>
+	</div>
+</nav>
+<!-- Breadcrumbs -->
+<ol class="breadcrumb">
+	<li class="breadcrumb-item active">Home</li>
+</ol>
+<div class="col">
+	<div class="card card-body">
+		<!-- <h1 class="text-center mb-3"><i class="fas fa-user-plus"></i> Register</h1> -->
+		<% include ./partials/messages %>
+		<h4><%= store.storeInfo.storeName %> - <%= store.storeInfo.storeNum %></h4>
+		<form action="/stores/storenum=<%- store.storeInfo.storeNum -%>/update" method="POST">
+			<ul class="nav nav-tabs">
+				<li class="nav-item">
+					<a class="nav-link active" data-toggle="tab" href="#store">Store Information</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" href="#emp">Employee Information</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" href="#rack">Rack Information</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" href="#other">Other Information</a>
+				</li>
+			</ul>
+			<div id="myTabContent" class="tab-content">
+				<div class="tab-pane fade show active" id="store">
+					<div class="form-group">
+						<label for="storeNum">Store Number</label>
+						<input
+							type="number"
+							id="storeNum"
+							name="storeNum"
+							class="form-control"
+							value="<%= store.storeInfo.storeNum %>"
+						/>
+					</div>
+					<div class="form-group">
+						<label for="storeName">Store Name</label>
+						<input
+							type="text"
+							id="storeName"
+							name="storeName"
+							class="form-control"
+							value="<%= store.storeInfo.storeName %>"
+						/>
+					</div>
+					<div class="form-group">
+						<label for="storeChain">Chain</label>
+						<input
+							type="text"
+							id="storeChain"
+							name="storeChain"
+							class="form-control"
+							value="<%= store.storeInfo.storeChain %>"
+						/>
+					</div>
+					<div class="form-group">
+						<label for="address">Address</label>
+						<input
+							type="text"
+							id="address"
+							name="address"
+							class="form-control"
+							value="<%= store.storeInfo.address %>"
+						/>
+					</div>
+					<div class="form-group">
+						<label for="zipCode">ZipCode</label>
+						<input
+							type="number"
+							id="zipCode"
+							name="zipCode"
+							class="form-control"
+							value="<%= store.storeInfo.zipCode %>"
+						/>
+					</div>
+					<div class="form-group">
+						<label for="city">City</label>
+						<input
+							type="text"
+							id="city"
+							name="city"
+							class="form-control"
+							value="<%= store.storeInfo.city %>"
+						/>
+					</div>
+					<div class="form-group">
+						<label for="phone">Phone</label>
+						<input
+							type="number"
+							id="phone"
+							name="phone"
+							class="form-control"
+							value="<%= store.storeInfo.phone %>"
+						/>
+					</div>
+				</div>
+
+				<div class="tab-pane fade" id="emp">
+					<div class="form-group">
+						<label for="serviceConsulent">Service Konsulent</label>
+						<select
+							class="form-control"
+							type="text"
+							id="serviceConsultant"
+							name="serviceConsultant"
+						>
+							<% employees.map( emp => { if (emp.title == 'Service Konsulent'){ %>
+							<option><%= emp.name %></option>
+							<% }}) %>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="serviceConsulent">Salgs Konsulent</label>
+						<select
+							class="form-control"
+							type="texxt"
+							id="salesConsultant"
+							name="salesConsultant"
+						>
+							<% employees.map( emp => { if (emp.title == 'Salgs Konsulent'
+							||emp.title == 'Team Leader'){ %>
+							<option><%= emp.name %></option>
+							<% }}) %>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="visitDay">Besøgs Dag</label>
+						<input
+							type="text"
+							id="visitDay"
+							name="visitDay"
+							class="form-control"
+							value="<%= store.empInfo.visitDay %>"
+						/>
+					</div>
+					<div class="form-group">
+						<label for="priority">Prioritet</label>
+						<select class="form-control" type="text" id="priority" name="priority">
+							<option>A</option>
+							<option>B</option>
+							<option>C</option>
+							<option>D</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="tab-pane fade" id="rack">
+					<small id="rackHelp" class="form-text text-muted"
+						>Insert 0 for the racks the store dosnt have</small
+					>
+					<div class="form-group">
+						<label for="CKS2Full">CKS2Full</label>
+						<input
+							type="number"
+							id="CKS2Full"
+							name="CKS2Full"
+							class="form-control"
+							value="<%= store.containers.CKS2Full %>"
+						/>
+					</div>
+					<div class="form-group">
+						<label for="CKS2Split">CKS2Split</label>
+						<input
+							type="number"
+							id="CKS2Split"
+							name="CKS2Split"
+							class="form-control"
+							value="<%= store.containers.CKS2Split %>"
+						/>
+					</div>
+					<div class="form-group">
+						<label for="CKS1High">CKS1High</label>
+						<input
+							type="number"
+							id="CKS1High"
+							name="CKS1High"
+							class="form-control"
+							value="<%= store.containers.CKS1High %>"
+						/>
+					</div>
+					<div class="form-group">
+						<label for="CKS1Full">CKS1Full</label>
+						<input
+							type="number"
+							id="CKS1Full"
+							name="CKS1Full"
+							class="form-control"
+							value="<%= store.containers.CKS1Full %>"
+						/>
+					</div>
+					<div class="form-group">
+						<label for="CKS1Low">CKS1Low</label>
+						<input
+							type="number"
+							id="CKS1Low"
+							name="CKS1Low"
+							class="form-control"
+							value="<%= store.containers.CKS1Low %>"
+						/>
+					</div>
+					<div class="form-group">
+						<label for="CKSSmartLow">CKSSmartLow</label>
+						<input
+							type="number"
+							id="CKSSmartLow"
+							name="CKSSmartLow"
+							class="form-control"
+							value="<%= store.containers.CKSSmartLow %>"
+						/>
+					</div>
+					<div class="form-group">
+						<label for="Parrot">Parrot</label>
+						<input
+							type="number"
+							id="Parrot"
+							name="Parrot"
+							class="form-control"
+							value="<%= store.containers.Parrot %>"
+						/>
+					</div>
+				</div>
+				<div class="tab-pane fade" id="other">
+					<div class="form-group">
+						<label for="timeSpentPM">timeSpentPM</label>
+						<input
+							type="time"
+							id="timeSpentPM"
+							name="timeSpentPM"
+							class="form-control"
+							value="<%= store.timeSpent.timeSpentPM %>"
+						/>
+					</div>
+					<div class="form-group">
+						<label for="timeSpentPacked">timeSpentPacked</label>
+						<input
+							type="time"
+							id="timeSpentPacked"
+							name="timeSpentPacked"
+							class="form-control"
+							value="<%= store.timeSpent.timeSpentPacked %>"
+						/>
+					</div>
+					<div class="form-group">
+						<label for="avgAmount">avgAmount</label>
+						<input
+							type="number"
+							id="avgAmount"
+							name="avgAmount"
+							class="form-control"
+							value="<%= store.avgAmount %>"
+						/>
+					</div>
+				</div>
+			</div>
+
+			<button type="submit" class="btn btn-primary btn-block" href>
+				Update
+			</button>
+		</form>
+	</div>
+</div>

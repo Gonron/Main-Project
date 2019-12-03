@@ -8,7 +8,7 @@ const EmployeeSchema = new Schema({
 	},
 	title: {
 		type: String,
-		enum: ['Service Konsulent', 'Salgs Konsulent'],
+		enum: ['Service Konsulent', 'Salgs Konsulent', 'Team Leader'],
 		required: true
 	},
 	email: {

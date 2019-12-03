@@ -128,4 +128,20 @@ describe('Test - Employee Facade', function() {
 		expect(employee).to.be.null
 		expect(employee_.length).to.be.equal(4)
 	})
+
+	it('Fail Validation For Update - No Fields', async function() {
+		let errors = employeeFacade.employeeValidation('', '', '', '')
+		expect(errors.length).to.be.equal(1)
+		expect(errors[0].msg).to.be.equal('Please fill in all fields')
+	})
+
+	it('Pass Validation For Update', async function() {
+		let errors = employeeFacade.employeeValidation(
+			'Lars Wonnegut',
+			'Salgs Konsulent',
+			'lw@cloetta.dk',
+			'somewhereintheworld 123'
+		)
+		expect(errors.length).to.be.equal(0)
+	})
 })
