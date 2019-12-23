@@ -50,37 +50,37 @@ describe('Test - GoogleApi Facade', function() {
 		])
 	})
 
-	it('Find Distance/Duration Between Kurt And Hanne (Driving)', async function() {
-		let response = await googleApiFacade.googleApi(employees[0].address, employees[1].address)
-		expect(response).to.not.be.null
-		expect(response.durations.value.length).to.be.equal(1)
-	})
+	// it('Find Distance/Duration Between Kurt And Hanne (Driving)', async function() {
+	// 	let response = await googleApiFacade.googleApi(employees[0].address, employees[1].address)
+	// 	expect(response).to.not.be.null
+	// 	expect(response.durations.value.length).to.be.equal(1)
+	// })
 
-	it('Find Distance/Duration Between Kurt And Hanne (Transit)', async function() {
-		let response = await googleApiFacade.googleApi(
-			employees[0].address,
-			employees[1].address,
-			'transit'
-		)
-		expect(response).to.not.be.null
-		expect(response.durations.value.length).to.be.equal(1)
-	})
+	// it('Find Distance/Duration Between Kurt And Hanne (Transit)', async function() {
+	// 	let response = await googleApiFacade.googleApi(
+	// 		employees[0].address,
+	// 		employees[1].address,
+	// 		'transit'
+	// 	)
+	// 	expect(response).to.not.be.null
+	// 	expect(response.durations.value.length).to.be.equal(1)
+	// })
 
-	it('Find Distance/Duration Between Kurt To Hanne, Keth (Driving)', async function() {
-		let response = await googleApiFacade.googleApi(employees[0].address, [
-			employees[1].address,
-			employees[2].address
-		])
-		expect(response).to.not.be.null
-		expect(response.durations.value.length).to.be.equal(2)
-	})
+	// it('Find Distance/Duration Between Kurt To Hanne, Keth (Driving)', async function() {
+	// 	let response = await googleApiFacade.googleApi(employees[0].address, [
+	// 		employees[1].address,
+	// 		employees[2].address
+	// 	])
+	// 	expect(response).to.not.be.null
+	// 	expect(response.durations.value.length).to.be.equal(2)
+	// })
 
-	it('Calculate The Shortest Route In Duration', async function() {
+	it('Calculate The Shortest Route', async function() {
 		let route = await googleApiFacade.routeCalculator('Enghavevej 130, 2450 København SV', [
-			'Blåkildevej 2-4 2630 Taastrup',
-			'Ugandavej 111 2770 Kastrup',
-			'Vasevej 119 A 3460 Birkerød',
-			'Bymidten 23 3500 Værløse'
+			'Blåkildevej 2, 4, 2630 Taastrup, Danmark',
+			'Ugandavej 111, 2770 Kastrup, Danmark',
+			'Vasevej 119A, 3460 Birkerød, Danmark',
+			'Bymidten 23, 3500 Værløse, Danmark'
 		])
 		console.log(route)
 		expect(route.routeInformation.destinationAddress[0]).to.be.equal(

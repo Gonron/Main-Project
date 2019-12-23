@@ -188,25 +188,13 @@ describe('Test - Store Facade', function() {
 		expect(stores[0].storeInfo.storeName).to.be.equal('Meny Hvidover')
 	})
 
-	it('Find Klaus Stores With Visit Days on Fredays', async function() {
+	it('Find Klaus Stores With Visit Days on Fridays', async function() {
 		let stores = await storeFacade.findStoresByEmployeedAndEmpVisitDay(employees[2]._id, 'fre')
 		expect(stores.length).to.be.equal(1)
 		expect(stores[0].empInfo.visitDay).to.be.equal('Man/Fre')
 	})
 
 	it('Add Føtex Carlsbergbyen', async function() {
-		let empSerive = await employeeFacade.addEmployee(
-			'Michael Lundsgaard',
-			'Service Konsulent',
-			'ml@cloetta.dk',
-			'somestreet 234'
-		)
-		let empSales = await employeeFacade.addEmployee(
-			'Klaus Petersen',
-			'Salgs Konsulent',
-			'kp@cloetta.dk',
-			'somestreet 235'
-		)
 		let store = await storeFacade.addStore(
 			{
 				storeNum: 5113225,
@@ -218,8 +206,8 @@ describe('Test - Store Facade', function() {
 				phone: '33876000'
 			},
 			{
-				serviceConsultant: empSerive,
-				salesConsultant: empSales,
+				serviceConsultant: employees[0],
+				salesConsultant: employees[3],
 				visitDay: 'Man/Tors',
 				priority: 'A',
 				frequency: '2 besøg hver uge'
@@ -294,125 +282,149 @@ describe('Test - Store Facade', function() {
 	})
 
 	it('Fail Validation for Update - No Fields', async function() {
-		let errors = storeFacade.storeValidation({
-			storeNum: '',
-			storeName: '',
-			storeChain: '',
-			address: '',
-			zipCode: '',
-			city: '',
-			phone: '',
-			serviceConsultant: '',
-			salesConsultant: '',
-			visitDay: '',
-			priority: '',
-			frequency: '',
-			CKS1Full: '',
-			Parrot: '',
-			timeSpentPM: '',
-			timeSpentPacked: '',
-			timeSpentTotal: '',
-			avgAmount: ''
-		})
+		let store = await storeFacade.findOneStoreByName('Bilka Hundige')
+		let errors = await storeFacade.storeValidation(
+			{
+				storeNum: '',
+				storeName: '',
+				storeChain: '',
+				address: '',
+				zipCode: '',
+				city: '',
+				phone: '',
+				serviceConsultant: '',
+				salesConsultant: '',
+				visitDay: '',
+				priority: '',
+				frequency: '',
+				CKS1Full: '',
+				Parrot: '',
+				timeSpentPM: '',
+				timeSpentPacked: '',
+				timeSpentTotal: '',
+				avgAmount: ''
+			},
+			store._id
+		)
 		expect(errors.length).to.be.equal(3)
 		expect(errors[0].msg).to.be.equal('Please fill in all fields')
 	})
 
 	it('Fail Validation for Update - Invalid Zipcode', async function() {
-		let errors = storeFacade.storeValidation({
-			storeNum: '5670017',
-			storeName: 'Bilka Hundige',
-			storeChain: 'Bilka/A-Z',
-			address: 'Hundige Centervej 450, 2670 Greve',
-			zipCode: '26',
-			city: 'Greve',
-			phone: '43955000',
-			serviceConsultant: employees[0],
-			salesConsultant: employees[2],
-			visitDay: 'Man/Fre',
-			priority: 'A',
-			frequency: '2 besøg hver uge',
-			CKS1Full: '10',
-			Parrot: '2',
-			timeSpentPM: '03:04',
-			timeSpentPacked: '02:02',
-			timeSpentTotal: '05:06',
-			avgAmount: '200'
-		})
+		let store = await storeFacade.findOneStoreByName('Bilka Hundige')
+		let errors = await storeFacade.storeValidation(
+			{
+				storeNum: '5670017',
+				storeName: 'Bilka Hundige',
+				storeChain: 'Bilka/A-Z',
+				address: 'Hundige Centervej 450, 2670 Greve',
+				zipCode: '26',
+				city: 'Greve',
+				phone: '43955000',
+				serviceConsultant: employees[0],
+				salesConsultant: employees[2],
+				visitDay: 'Man/Fre',
+				priority: 'A',
+				frequency: '2 besøg hver uge',
+				CKS1Full: '10',
+				Parrot: '2',
+				timeSpentPM: '03:04',
+				timeSpentPacked: '02:02',
+				timeSpentTotal: '05:06',
+				avgAmount: '200'
+			},
+			store._id
+		)
+
 		expect(errors.length).to.be.equal(1)
 		expect(errors[0].msg).to.be.equal('Invalid zipcode - Should be 4 digits')
 	})
 
 	it('Fail Validation for Update - Invalid Address', async function() {
-		let errors = await storeFacade.storeValidation({
-			storeNum: '5670017',
-			storeName: 'Bilka Hundige',
-			storeChain: 'Bilka/A-Z',
-			address: 'Hundige Centervej 450',
-			zipCode: '2670',
-			city: 'Greve',
-			phone: '43955000',
-			serviceConsultant: employees[0],
-			salesConsultant: employees[2],
-			visitDay: 'Man/Fre',
-			priority: 'A',
-			frequency: '2 besøg hver uge',
-			CKS1Full: '10',
-			Parrot: '2',
-			timeSpentPM: '03:04',
-			timeSpentPacked: '02:02',
-			timeSpentTotal: '05:06',
-			avgAmount: '200'
-		})
+		let store = await storeFacade.findOneStoreByName('Bilka Hundige')
+		let errors = await storeFacade.storeValidation(
+			{
+				storeNum: '5670017',
+				storeName: 'Bilka Hundige',
+				storeChain: 'Bilka/A-Z',
+				address: 'Hundige Centervej 450',
+				zipCode: '2670',
+				city: 'Greve',
+				phone: '43955000',
+				serviceConsultant: employees[0],
+				salesConsultant: employees[2],
+				visitDay: 'Man/Fre',
+				priority: 'A',
+				frequency: '2 besøg hver uge',
+				CKS1Full: '10',
+				Parrot: '2',
+				timeSpentPM: '03:04',
+				timeSpentPacked: '02:02',
+				timeSpentTotal: '05:06',
+				avgAmount: '200'
+			},
+			store._id
+		)
+
 		expect(errors.length).to.be.equal(1)
 		expect(errors[0].msg).to.be.equal('address must have zipcode and city in it')
 	})
 
-	it('Fail Validation for Update - Invalid Address', async function() {
-		let errors = storeFacade.storeValidation({
-			storeNum: '5670017',
-			storeName: 'Bilka Hundige',
-			storeChain: 'Bilka/A-Z',
-			address: 'Hundige Centervej 450, 2670 Greve',
-			zipCode: '2670',
-			city: 'Greve',
-			phone: '4395',
-			serviceConsultant: employees[0],
-			salesConsultant: employees[2],
-			visitDay: 'Man/Fre',
-			priority: 'A',
-			frequency: '2 besøg hver uge',
-			CKS1Full: '10',
-			Parrot: '2',
-			timeSpentPM: '03:04',
-			timeSpentPacked: '02:02',
-			timeSpentTotal: '05:06',
-			avgAmount: '200'
-		})
+	it('Fail Validation for Update - Invalid Phone', async function() {
+		let store = await storeFacade.findOneStoreByName('Bilka Hundige')
+		let errors = await storeFacade.storeValidation(
+			{
+				storeNum: '5670017',
+				storeName: 'Bilka Hundige',
+				storeChain: 'Bilka/A-Z',
+				address: 'Hundige Centervej 450, 2670 Greve',
+				zipCode: '2670',
+				city: 'Greve',
+				phone: '4395',
+				serviceConsultant: employees[0],
+				salesConsultant: employees[2],
+				visitDay: 'Man/Fre',
+				priority: 'A',
+				frequency: '2 besøg hver uge',
+				CKS1Full: '10',
+				Parrot: '2',
+				timeSpentPM: '03:04',
+				timeSpentPacked: '02:02',
+				timeSpentTotal: '05:06',
+				avgAmount: '200'
+			},
+			store._id
+		)
+
 		expect(errors.length).to.be.equal(1)
 		expect(errors[0].msg).to.be.equal('Invalid number - Should be 8 digits')
 	})
 	it('Pass Validation for Update', async function() {
-		let errors = storeFacade.storeValidation({
-			storeNum: '5670017',
-			storeName: 'Bilka Hundige',
-			storeChain: 'Bilka/A-Z',
-			address: 'Hundige Centervej 450, 2670 Greve',
-			zipCode: '2670',
-			city: 'Greve',
-			phone: '43955000',
-			serviceConsultant: employees[0],
-			salesConsultant: employees[2],
-			visitDay: 'Man/Fre',
-			priority: 'A',
-			frequency: '2 besøg hver uge',
-			CKS1Full: '10',
-			Parrot: '2',
-			timeSpentPM: '03:04',
-			timeSpentPacked: '02:02',
-			timeSpentTotal: '05:06',
-			avgAmount: '200'
-		})
+		let store = await storeFacade.findOneStoreByName('Bilka Hundige')
+		let errors = await storeFacade.storeValidation(
+			{
+				storeNum: '5670017',
+				storeName: 'Bilka Hundige',
+				storeChain: 'Bilka/A-Z',
+				address: 'Hundige Centervej 450, 2670 Greve',
+				zipCode: '2670',
+				city: 'Greve',
+				phone: '43955000',
+				serviceConsultant: employees[0],
+				salesConsultant: employees[2],
+				visitDay: 'Man/Fre',
+				priority: 'A',
+				frequency: '2 besøg hver uge',
+				CKS1Full: '10',
+				Parrot: '2',
+				timeSpentPM: '03:04',
+				timeSpentPacked: '02:02',
+				timeSpentTotal: '05:06',
+				avgAmount: '200'
+			},
+			store._id
+		)
+
 		expect(errors.length).to.be.equal(0)
 	})
 })

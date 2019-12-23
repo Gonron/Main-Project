@@ -31,13 +31,12 @@
 <ol class="breadcrumb">
 	<li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
 	<li class="breadcrumb-item"><a href="/stores">Stores</a></li>
-	<li class="breadcrumb-item active">Update</li>
+	<li class="breadcrumb-item active">Add Store</li>
 </ol>
 <div class="col">
 	<div class="card card-body">
 		<% include ./partials/messages %>
-		<h4><%= store.storeInfo.storeName %> - <%= store.storeInfo.storeNum %></h4>
-		<form action="/stores/storenum=<%- store.storeInfo.storeNum -%>/update" method="POST">
+		<form action="/stores/addStore" method="POST">
 			<ul class="nav nav-tabs">
 				<li class="nav-item">
 					<a class="nav-link active" data-toggle="tab" href="#store">Store Information</a>
@@ -61,7 +60,7 @@
 							id="storeNum"
 							name="storeNum"
 							class="form-control"
-							value="<%= store.storeInfo.storeNum %>"
+							value="<%= typeof req.body.storeNum != 'undefined' ? req.body.storeNum : '' %>"
 						/>
 					</div>
 					<div class="form-group">
@@ -71,7 +70,7 @@
 							id="storeName"
 							name="storeName"
 							class="form-control"
-							value="<%= store.storeInfo.storeName %>"
+							value="<%= typeof req.body.storeName != 'undefined' ? req.body.storeName : '' %>"
 						/>
 					</div>
 					<div class="form-group">
@@ -81,7 +80,7 @@
 							id="storeChain"
 							name="storeChain"
 							class="form-control"
-							value="<%= store.storeInfo.storeChain %>"
+							value="<%= typeof req.body.storeChain != 'undefined' ? req.body.storeChain : '' %>"
 						/>
 					</div>
 					<div class="form-group">
@@ -91,7 +90,7 @@
 							id="address"
 							name="address"
 							class="form-control"
-							value="<%= store.storeInfo.address %>"
+							value="<%= typeof req.body.address != 'undefined' ? req.body.address : '' %>"
 						/>
 						<small id="addressHelp" class="form-text text-muted">
 							Format: Enghavevej 255, 2450 København SV
@@ -104,7 +103,7 @@
 							id="zipCode"
 							name="zipCode"
 							class="form-control"
-							value="<%= store.storeInfo.zipCode %>"
+							value="<%= typeof req.body.zipCode != 'undefined' ? req.body.zipCode : '' %>"
 						/>
 					</div>
 					<div class="form-group">
@@ -114,7 +113,7 @@
 							id="city"
 							name="city"
 							class="form-control"
-							value="<%= store.storeInfo.city %>"
+							value="<%= typeof req.body.city != 'undefined' ? req.body.city : '' %>"
 						/>
 					</div>
 					<div class="form-group">
@@ -124,7 +123,7 @@
 							id="phone"
 							name="phone"
 							class="form-control"
-							value="<%= store.storeInfo.phone %>"
+							value="<%= typeof req.body.phone != 'undefined' ? req.body.phone : '' %>"
 						/>
 					</div>
 				</div>
@@ -143,10 +142,6 @@
 							<option><%= emp.name %></option>
 							<% }}) %>
 						</select>
-						<small id="empHelp" class="form-text text-muted">
-							Current Service Consultant: <%= store.empInfo.serviceConsultant[0].name
-							%>
-						</small>
 					</div>
 					<div class="form-group">
 						<label for="serviceConsulent">Salgs Konsulent</label>
@@ -162,9 +157,6 @@
 							<option><%= emp.name %></option>
 							<% }}) %>
 						</select>
-						<small id="empHelp" class="form-text text-muted">
-							Current Service Consultant: <%= store.empInfo.salesConsultant[0].name %>
-						</small>
 					</div>
 					<div class="form-group">
 						<label for="visitDay">Besøgs Dag</label>
@@ -173,7 +165,7 @@
 							id="visitDay"
 							name="visitDay"
 							class="form-control"
-							value="<%= store.empInfo.visitDay %>"
+							value="<%= typeof req.body.visitDay != 'undefined' ? req.body.visitDay : '' %>"
 						/>
 					</div>
 					<div class="form-group">
@@ -185,9 +177,6 @@
 							<option>C</option>
 							<option>D</option>
 						</select>
-						<small id="empHelp" class="form-text text-muted">
-							Current Priority: <%= store.empInfo.priority %>
-						</small>
 					</div>
 				</div>
 
@@ -202,7 +191,7 @@
 							id="CKS2Full"
 							name="CKS2Full"
 							class="form-control"
-							value="<%= store.containers.CKS2Full %>"
+							value="<%= typeof req.body.CKS2Full != 'undefined' ? req.body.CKS2Full : '' %>"
 						/>
 					</div>
 					<div class="form-group">
@@ -212,7 +201,7 @@
 							id="CKS2Split"
 							name="CKS2Split"
 							class="form-control"
-							value="<%= store.containers.CKS2Split %>"
+							value="<%= typeof req.body.CKS2Split != 'undefined' ? req.body.CKS2Split : '' %>"
 						/>
 					</div>
 					<div class="form-group">
@@ -222,7 +211,7 @@
 							id="CKS1High"
 							name="CKS1High"
 							class="form-control"
-							value="<%= store.containers.CKS1High %>"
+							value="<%= typeof req.body.CKS1High != 'undefined' ? req.body.CKS1High : '' %>"
 						/>
 					</div>
 					<div class="form-group">
@@ -232,7 +221,7 @@
 							id="CKS1Full"
 							name="CKS1Full"
 							class="form-control"
-							value="<%= store.containers.CKS1Full %>"
+							value="<%= typeof req.body.CKS1Full != 'undefined' ? req.body.CKS1Full : '' %>"
 						/>
 					</div>
 					<div class="form-group">
@@ -242,7 +231,7 @@
 							id="CKS1Low"
 							name="CKS1Low"
 							class="form-control"
-							value="<%= store.containers.CKS1Low %>"
+							value="<%= typeof req.body.CKS1Low != 'undefined' ? req.body.CKS1Low : '' %>"
 						/>
 					</div>
 					<div class="form-group">
@@ -252,7 +241,7 @@
 							id="CKSSmartLow"
 							name="CKSSmartLow"
 							class="form-control"
-							value="<%= store.containers.CKSSmartLow %>"
+							value="<%= typeof req.body.CKSSmartLow  != 'undefined' ? req.body.CKSSmartLow  : '' %>"
 						/>
 					</div>
 					<div class="form-group">
@@ -262,7 +251,7 @@
 							id="Parrot"
 							name="Parrot"
 							class="form-control"
-							value="<%= store.containers.Parrot %>"
+							value="<%= typeof req.body.Parrot != 'undefined' ? req.body.Parrot : '' %>"
 						/>
 					</div>
 				</div>
@@ -274,7 +263,7 @@
 							id="timeSpentPM"
 							name="timeSpentPM"
 							class="form-control"
-							value="<%= store.timeSpent.timeSpentPM %>"
+							value="<%= typeof req.body.timeSpentPM != 'undefined' ? req.body.timeSpentPM : '' %>"
 						/>
 					</div>
 					<div class="form-group">
@@ -284,7 +273,7 @@
 							id="timeSpentPacked"
 							name="timeSpentPacked"
 							class="form-control"
-							value="<%= store.timeSpent.timeSpentPacked %>"
+							value="<%= typeof req.body.timeSpentPacked != 'undefined' ? req.body.timeSpentPacked : '' %>"
 						/>
 					</div>
 					<div class="form-group">
@@ -294,14 +283,14 @@
 							id="avgAmount"
 							name="avgAmount"
 							class="form-control"
-							value="<%= store.avgAmount %>"
+							value="<%= typeof req.body.avgAmount != 'undefined' ? req.body.avgAmount : '' %>"
 						/>
 					</div>
 				</div>
 			</div>
 
 			<button type="submit" class="btn btn-primary btn-block" href>
-				Update
+				Add Store
 			</button>
 		</form>
 	</div>

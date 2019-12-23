@@ -33,9 +33,11 @@
 	<li class="breadcrumb-item"><a href="/stores">Stores</a></li>
 	<li class="breadcrumb-item active"><%= store.storeInfo.storeName%></li>
 </ol>
+
 <div class="col">
-	<% include ./partials/messages %>
-	<h2 class="mt-4"><%= store.storeInfo.storeName%></h2>
+	<h2 class="mt-4">
+		<%= store.storeInfo.storeName%>
+	</h2>
 	<ul class="nav nav-tabs">
 		<li class="nav-item">
 			<a class="nav-link active" data-toggle="tab" href="#store">Store Info</a>
@@ -133,6 +135,9 @@
 			<table class="table table-hover">
 				<thead>
 					<tr>
+						<th>Visit Day</th>
+						<th>Priority</th>
+						<th>Frequency</th>
 						<th>Time on P/M</th>
 						<th>Time on Packed</th>
 						<th>Total Time</th>
@@ -141,6 +146,9 @@
 				</thead>
 				<tbody>
 					<tr>
+						<td><%= store.empInfo.visitDay %></td>
+						<td><%= store.empInfo.priority %></td>
+						<td><%= store.empInfo.frequency %></td>
 						<td><%= store.timeSpent.timeSpentPM %></td>
 						<td><%= store.timeSpent.timeSpentPacked %></td>
 						<td><%= store.timeSpent.timeSpentTotal %></td>

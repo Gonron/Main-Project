@@ -6,7 +6,7 @@ function getAllEmployees() {
 }
 
 function addEmployee(name, title, email, address) {
-	return (newEmployee = Employee({ name, title, email, address }).save())
+	return (newEmployee = Employee({ name, title, email, address }).save({ runValidators: true }))
 }
 
 function findOneEmployeeByName(name) {
@@ -41,7 +41,7 @@ function deleteEmployeeById(employeeId) {
 	return Employee.deleteOne({ _id: employeeId }).exec()
 }
 
-function employeeValidation(name, title, email, address) {
+async function employeeValidation(name, title, email, address, employeeId) {
 	let errors = []
 
 	// Check required fields
@@ -49,7 +49,14 @@ function employeeValidation(name, title, email, address) {
 		errors.push({ msg: 'Please fill in all fields' })
 	}
 
-	//
+	// Checking if email is dublicate
+	await Employee.findOne({ email: email }).then(employee => {
+		if (employee) {
+			if (String(employee._id) != String(employeeId)) {
+				errors.push({ msg: 'Email is already registered' })
+			}
+		}
+	})
 
 	return errors
 }

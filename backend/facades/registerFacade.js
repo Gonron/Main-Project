@@ -18,7 +18,9 @@ let register = (name, email, password, password2, req, res) => {
 
 	// Check password length
 	if (password.length < 6) {
-		errors.push({ msg: 'Password should be at least 6 characters' })
+		errors.push({
+			msg: 'Password should be at least 6 characters'
+		})
 	}
 
 	if (errors.length > 0) {
@@ -51,19 +53,26 @@ let register = (name, email, password, password2, req, res) => {
 
 				// Hash password
 				bcrypt.genSalt(10, (err, salt) =>
-					bcrypt.hash(newUser.password, salt, (err, hash) => {
-						if (err) throw err
-						// Set password to hashed
-						newUser.password = hash
-						// Save user
-						newUser
-							.save()
-							.then(user => {
-								req.flash('successMsg', 'You are now registered and can log in')
-								res.redirect('/users/login')
-							})
-							.catch(err => console.log(err))
-					})
+					bcrypt.hash(
+						newUser.password,
+						salt,
+						(err, hash) => {
+							if (err) throw err
+							// Set password to hashed
+							newUser.password = hash
+							// Save user
+							newUser
+								.save()
+								.then(user => {
+									req.flash(
+										'successMsg',
+										'You are now registered and can log in'
+									)
+									res.redirect('/users/login')
+								})
+								.catch(err => console.log(err))
+						}
+					)
 				)
 			}
 		})

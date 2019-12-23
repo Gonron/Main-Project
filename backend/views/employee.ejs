@@ -30,37 +30,42 @@
 <!-- Breadcrumbs -->
 <ol class="breadcrumb">
 	<li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
-	<li class="breadcrumb-item"><a href="/employees">Employees</a></li>
+	<li class="breadcrumb-item"><a href="/employees">Team</a></li>
 	<li class="breadcrumb-item active"><%= employee.name%></li>
 </ol>
 <div class="col">
-	<% include ./partials/messages %>
-	<table class="table table-hover" id="myTable">
-		<thead>
-			<tr>
-				<th>Number</th>
-				<th>Name</th>
-				<th>Address</th>
-				<th>Phone</th>
-			</tr>
-		</thead>
-		<tbody>
-			<% stores.map( s => { %>
-			<tr>
-				<td>
-					<a href="/stores/storenum=<%- s.storeInfo.storeNum -%>"
-						><%= s.storeInfo.storeNum %>
-					</a>
-				</td>
-				<td><%= s.storeInfo.storeName %></td>
-				<td>
-					<%= s.storeInfo.address %>
-					<br />
-					<%= `${s.storeInfo.zipCode} ${s.storeInfo.city}` %>
-				</td>
-				<td><%= s.storeInfo.phone %></td>
-			</tr>
-			<% }) %>
-		</tbody>
-	</table>
+	<h2 class="mt-4">
+		<%= employee.name%>
+	</h2>
+
+	<div id="myTabContent" class="tab-content">
+		<table class="table table-hover" id="myTable">
+			<thead>
+				<tr>
+					<th>Number</th>
+					<th>Name</th>
+					<th>Address</th>
+					<th>Phone</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% stores.map( s => { %>
+				<tr>
+					<td>
+						<a href="/stores/storenum=<%- s.storeInfo.storeNum -%>"
+							><%= s.storeInfo.storeNum %>
+						</a>
+					</td>
+					<td><%= s.storeInfo.storeName %></td>
+					<td>
+						<%= s.storeInfo.address %>
+						<br />
+						<%= `${s.storeInfo.zipCode} ${s.storeInfo.city}` %>
+					</td>
+					<td><%= s.storeInfo.phone %></td>
+				</tr>
+				<% }) %>
+			</tbody>
+		</table>
+	</div>
 </div>

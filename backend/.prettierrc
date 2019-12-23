@@ -1,8 +1,8 @@
 {
-  "printWidth": 100,
-  "useTabs": true,
-  "tabWidth": 4,
-  "singleQuote": true,
-  "semi": false,
-  "linting.pylintArgs": ["--generate-members"]
+	"printWidth": 100,
+	"useTabs": true,
+	"tabWidth": 4,
+	"singleQuote": true,
+	"semi": false,
+	"linting.pylintArgs": ["--generate-members"]
 }

@@ -89,7 +89,7 @@ function dataFormatter(data) {
 	return { durationFormatted, distanceFormatted }
 }
 
-async function routeCalculator(empAddress, storeAddresses, travelMode = 'driving') {
+async function routeCalculator(empAddress, storeAddresses, travelMode) {
 	let routeInformation = {
 		originAddress: [],
 		destinationAddress: [],

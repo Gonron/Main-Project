@@ -33,7 +33,13 @@
 	<li class="breadcrumb-item active">Team</li>
 </ol>
 <div class="col">
-	<h1 class="mt-4">Employees</h1>
+	<% include ./partials/messages %>
+	<h2 class="mt-4">
+		Employees
+		<a href="/employees/addEmployee" class="btn btn-success">
+			Add Employee
+		</a>
+	</h2>
 	<ul class="nav nav-tabs">
 		<li class="nav-item">
 			<a class="nav-link active" data-toggle="tab" href="#all">Alle Konsulenter</a>
@@ -54,6 +60,7 @@
 						<th>Title</th>
 						<th>Email</th>
 						<th>Address</th>
+						<th>Tools</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -63,6 +70,17 @@
 						<td><%= emp.title %></td>
 						<td><%= emp.email %></td>
 						<td><%= emp.address %></td>
+						<td>
+							<a href="/employees/emp_id=<%- emp._id -%>/update">
+								<i class="fas fa-user-edit" style="color: cornflowerblue;"></i>
+							</a>
+							<a
+								href="/employees/emp_id=<%- emp._id -%>/delete"
+								onclick="return confirm('Are you sure you want to delete <%= emp.name %>');"
+							>
+								<i class="fas fa-user-times"></i>
+							</a>
+						</td>
 					</tr>
 					<% }) %>
 				</tbody>
@@ -77,6 +95,7 @@
 						<th>Title</th>
 						<th>Email</th>
 						<th>Address</th>
+						<th>Tools</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -86,6 +105,17 @@
 						<td><%= emp.title %></td>
 						<td><%= emp.email %></td>
 						<td><%= emp.address %></td>
+						<td>
+							<a href="/employees/emp_id=<%- emp._id -%>/update">
+								<i class="fas fa-user-edit" style="color: cornflowerblue;"></i>
+							</a>
+							<a
+								href="/employees/emp_id=<%- emp._id -%>/delete"
+								onclick="return confirm('Are you sure you want to delete <%= emp.name %>');"
+							>
+								<i class="fas fa-user-times"></i>
+							</a>
+						</td>
 					</tr>
 					<% } %> <% }) %>
 				</tbody>
@@ -99,6 +129,7 @@
 						<th>Title</th>
 						<th>Email</th>
 						<th>Address</th>
+						<th>Tools</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -108,6 +139,17 @@
 						<td><%= emp.title %></td>
 						<td><%= emp.email %></td>
 						<td><%= emp.address %></td>
+						<td>
+							<a href="/employees/emp_id=<%- emp._id -%>/update">
+								<i class="fas fa-user-edit" style="color: cornflowerblue;"></i>
+							</a>
+							<a
+								href="/employees/emp_id=<%- emp._id -%>/delete"
+								onclick="return confirm('Are you sure you want to delete <%= emp.name %>');"
+							>
+								<i class="fas fa-user-times"></i>
+							</a>
+						</td>
 					</tr>
 					<% } %> <% }) %>
 				</tbody>

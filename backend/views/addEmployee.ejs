@@ -31,14 +31,13 @@
 <ol class="breadcrumb">
 	<li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
 	<li class="breadcrumb-item"><a href="/employees">Team</a></li>
-	<li class="breadcrumb-item active">Update</li>
+	<li class="breadcrumb-item active">Add Store</li>
 </ol>
 <div class="col">
 	<div class="card card-body">
 		<!-- <h1 class="text-center mb-3"><i class="fas fa-user-plus"></i> Register</h1> -->
 		<% include ./partials/messages %>
-		<h4><%= employee.name %></h4>
-		<form action="/employees/emp_id=<%- employee._id -%>/update" method="POST">
+		<form action="/employees/addEmployee" method="POST">
 			<div class="form-group">
 				<label for="name">Name</label>
 				<input
@@ -46,7 +45,7 @@
 					id="name"
 					name="name"
 					class="form-control"
-					value="<%= employee.name %>"
+					value="<%= typeof name != 'undefined' ? name : '' %>"
 				/>
 			</div>
 			<div class="form-group">
@@ -57,9 +56,6 @@
 					<option>Salgs Konsulent</option>
 					<option>Team Leader</option>
 				</select>
-				<small id="empTitleHelp" class="form-text text-muted"
-					>Current Title: <%= employee.title %></small
-				>
 			</div>
 			<div class="form-group">
 				<label for="email">Email</label>
@@ -68,24 +64,24 @@
 					id="email"
 					name="email"
 					class="form-control"
-					value="<%= employee.email %>"
+					value="<%= typeof email != 'undefined' ? email : '' %>"
 				/>
 			</div>
 			<div class="form-group">
 				<label for="address">Address</label>
 				<input
-					type="´text"
+					type="text"
 					id="address"
 					name="address"
 					class="form-control"
-					value="<%= employee.address %>"
+					value="<%= typeof address != 'undefined' ? address : '' %>"
 				/>
 				<small id="addressHelp" class="form-text text-muted">
 					Format: Enghavevej 255, 2450 København SV
 				</small>
 			</div>
 			<button type="submit" class="btn btn-primary btn-block" href>
-				Update
+				Add Employee
 			</button>
 		</form>
 	</div>

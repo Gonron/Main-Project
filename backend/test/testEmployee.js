@@ -130,17 +130,20 @@ describe('Test - Employee Facade', function() {
 	})
 
 	it('Fail Validation For Update - No Fields', async function() {
-		let errors = employeeFacade.employeeValidation('', '', '', '')
+		let employee = await employeeFacade.findOneEmployeeByName('Keth Wonnegut')
+		let errors = await employeeFacade.employeeValidation('', '', '', '', employee._id)
 		expect(errors.length).to.be.equal(1)
 		expect(errors[0].msg).to.be.equal('Please fill in all fields')
 	})
 
 	it('Pass Validation For Update', async function() {
-		let errors = employeeFacade.employeeValidation(
-			'Lars Wonnegut',
-			'Salgs Konsulent',
-			'lw@cloetta.dk',
-			'somewhereintheworld 123'
+		let employee = await employeeFacade.findOneEmployeeByName('Keth Wonnegut')
+		let errors = await employeeFacade.employeeValidation(
+			'Keth Wonnegut',
+			'Service Konsulent',
+			'kwo@cloetta.dk',
+			'somestreet 235',
+			employee._id
 		)
 		expect(errors.length).to.be.equal(0)
 	})

@@ -5,13 +5,7 @@ function getAllStores() {
 	return Store.find({}).exec()
 }
 
-function addStore(
-	storeInfo = { storeNum, storeName, storeChain, address, zipCode, city, phone },
-	empInfo = { serviceConsultant, salesConsultant, visitDay, priority, frequency },
-	containers = { CKS2Full, CKS2Split, CKS1High, CKS1Full, CKS1Low, CKSSmartLow, Parrot },
-	timeSpent = { timeSpentPM, timeSpentPacked, timeSpentTotal },
-	avgAmount
-) {
+function addStore(storeInfo, empInfo, containers, timeSpent, avgAmount) {
 	return (newStore = Store({
 		storeInfo,
 		empInfo,
@@ -76,7 +70,7 @@ function deleteStoreByNumber(number) {
 	return Store.deleteOne({ 'storeInfo.storeNum': number }).exec()
 }
 
-function storeValidation(body) {
+async function storeValidation(body, storeId) {
 	let errors = []
 
 	// Check required fields
@@ -101,6 +95,26 @@ function storeValidation(body) {
 	if (body.phone.length != 8) {
 		errors.push({ msg: 'Invalid number - Should be 8 digits' })
 	}
+
+	// Check service consultant
+	if (body.serviceConsultant == null) {
+		errors.push({ msg: 'Please choose a service consultant' })
+	}
+
+	// Check sales consultant
+	if (body.salesConsultant == null) {
+		errors.push({ msg: 'Please choose a sales consultant' })
+	}
+
+	// Checking if number is dublicate
+	await Store.findOne({ 'storeInfo.storeNum': body.storeNum }).then(store => {
+		if (store) {
+			if (String(store._id) != String(storeId)) {
+				errors.push({ msg: `Store Number: ${body.storeNum} is already registered` })
+			}
+		}
+	})
+
 	return errors
 }
 

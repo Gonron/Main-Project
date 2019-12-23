@@ -14,7 +14,6 @@ router.get('/register', (req, res) => res.render('register'))
 // Register Handle
 router.post('/register', (req, res) => {
 	const { name, email, password, password2 } = req.body
-
 	registerFacade.register(name, email, password, password2, req, res)
 })
 
