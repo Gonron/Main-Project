@@ -113,7 +113,6 @@ async function routeCalculator(empAddress, storeAddresses, travelMode) {
 		routeInformation.duration.push(data.durations.text[nearestStoreIndex])
 		routeInformation.distance.push(data.distances.text[nearestStoreIndex])
 	}
-
 	return {
 		routeInformation
 	}

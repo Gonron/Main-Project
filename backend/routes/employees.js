@@ -101,6 +101,7 @@ router.get('/emp_id=:empId/route', ensureAuthenticated, async function(req, res)
 	console.log('empAddress:', empAddress)
 	console.log('storeAddresses', storeAddresses)
 	let route = await googleApiFacade.routeCalculator(empAddress, storeAddresses)
+	console.log('route', route)
 
 	res.render('test', { route })
 })
